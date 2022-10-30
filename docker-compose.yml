@@ -1,0 +1,21 @@
+#version of docker compose
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "7007:80"
+    volumes:
+      - .:/code
+  mysqldb:
+    image: mysql
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+  phpmyadmin:
+    image: phpmyadmin:5.1-apache
+    ports:
+      - 8082:80
+    environment:
+      - PMA_HOST=mysqldb
