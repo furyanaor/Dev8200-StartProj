@@ -35,6 +35,15 @@ pipeline {
           }
        }
     }
+  
+    stage('TestingCode') {
+      steps {
+        echo "Testing the application code"
+
+        //sh 'python3 Dev8200-StartProj/test_app.py'
+        //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
+      }
+    }
 
     stage('Build') {
       parallel {
@@ -50,21 +59,13 @@ pipeline {
         }
       }
     }
-  
-    stage('Testing') {
-      steps {
-        echo "Testing the application"
 
-        //sh 'python3 Dev8200-StartProj/test_app.py'
-        //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
-      }
-    }
-  
-    stage('Deploy') {
+    stage('DeployTesting') {
       steps {
-        echo "deploying the application"
+        echo "deploying the application on Testing Virtual-Server"
 
         sh "sudo nohup python3 app.py > log.txt 2>&1 &"
+
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker image rm -f furyanaor/dev8200-startproj_web:latest'"
@@ -73,6 +74,15 @@ pipeline {
     }
   }
   
+    stage('TestingWeb') {
+      steps {
+        echo "Testing the webserver"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj.git:whatever ~/'
+        //sh 'python3 Dev8200-StartProj/test_app.py'
+        //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
+      }
+    }
+
   post {
       // Clean after build
         always {
