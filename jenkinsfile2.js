@@ -46,7 +46,7 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-            echo 'Building repo on Jenkins virtual-Server, tag & push to DockerHub'
+            echo 'Building repo on Jenkins Virtual-Server, tag & push to DockerHub'
 
             sh 'docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/Dev8200-StartProj/docker-compose.yml down'
             sh 'docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/Dev8200-StartProj/docker-compose.yml up --build -d'
@@ -63,7 +63,7 @@ pipeline {
 
         sh "sudo nohup python3 app.py > log.txt 2>&1 &"
 
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker image rm -f furyanaor/dev8200-startproj_web:latest'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker run --rm -d -p 7007:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
@@ -72,9 +72,11 @@ pipeline {
   
     stage('TestingWeb') {
       steps {  
-        echo "Testing the webserver"
+        echo "Testing the Testing Virtual-Server"
 
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj/blob/main/testmydocker.sh ~/testingfile'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj.git ~/testingfile'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo ls -lart ~/testingfile/*'"
+        
         //sh 'python3 Dev8200-StartProj/test_app.py'
         //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
       }
