@@ -4,4 +4,4 @@ from flask import Flask
 app = Flask("__main__")
 @app.route("/")
 def fun():
-	return "Hello WO0S0Orld"
+	return "Hello WWO0S0Orld"
