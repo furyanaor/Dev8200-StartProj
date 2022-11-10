@@ -20,7 +20,6 @@ pipeline {
     stage('Checkout') {
       steps {
         script {
-        
            // The below will clone your repo and will be checked out to master branch by default.
            // git credentialsId: 'furyanaor', url: 'https://github.com/furyanaor/Dev8200-StartProj.git'
            sh "git clone https://github.com/furyanaor/Dev8200-StartProj.git"
