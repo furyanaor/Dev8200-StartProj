@@ -2,12 +2,11 @@
 pipeline {
   agent any
   options {
-        // This is required if you want to clean before build
-        skipDefaultCheckout(true)
-    }
+      // This is required if you want to clean before build
+      skipDefaultCheckout(true)
+  }
 
   stages {
-
     stage('PreCheckout') {
       steps {
         // Clean before build
@@ -15,7 +14,7 @@ pipeline {
         // We need to explicitly checkout from SCM here
         //checkout scm
         echo "Building ${env.JOB_NAME}..."
-        }
+      }
     }
 
     stage('Checkout') {
@@ -32,8 +31,8 @@ pipeline {
            // sh "git branch -a"
            // Checkout to a specific branch in your repo.
            // sh "git checkout main"
-          }
-       }
+        }
+      }
     }
   
     stage('TestingCode') {
@@ -74,8 +73,7 @@ pipeline {
     }
   
     stage('TestingWeb') {
-      steps {
-      
+      steps {  
         echo "Testing the webserver"
 
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj/blob/9193473dd2e4a7333524257a5aea26d7296774f7/testmydocker.sh ~/'"
@@ -102,12 +100,10 @@ pipeline {
 
         success {                   
             echo "Flask Application Up and running!!"
-
         }
 
         failure {
             echo 'Build stage failed'
-
             error('Stopping early…')
         }
     }
