@@ -74,7 +74,7 @@ pipeline {
       steps {  
         echo "Testing the webserver"
 
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj/blob/9193473dd2e4a7333524257a5aea26d7296774f7/testmydocker.sh ~/testingfile'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj/blob/main/testmydocker.sh ~/testingfile'"
         //sh 'python3 Dev8200-StartProj/test_app.py'
         //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
       }
