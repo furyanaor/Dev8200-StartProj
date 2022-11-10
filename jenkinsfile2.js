@@ -80,8 +80,9 @@ pipeline {
         //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
       }
     }
-
-    post {
+  }
+  
+  post {
       // Clean after build
         always {
 
@@ -106,5 +107,4 @@ pipeline {
             error('Stopping early…')
         }
     }
-  }
 }
