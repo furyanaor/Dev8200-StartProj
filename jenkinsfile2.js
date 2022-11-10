@@ -9,21 +9,21 @@ pipeline {
   stages {
     stage('PreCheckout') {
       steps {
+        echo "Welcome ${env.JOB_NAME}... Cleaning Jenkins WorkSpace before build"
         // Clean before build
         cleanWs()
         // We need to explicitly checkout from SCM here
         //checkout scm
-        echo "Building ${env.JOB_NAME}..."
       }
     }
 
     stage('Checkout') {
       steps {
         script {
+          echo "Git clone to Jenkins Virtual-Server"
            // The below will clone your repo and will be checked out to master branch by default.
            // git credentialsId: 'furyanaor', url: 'https://github.com/furyanaor/Dev8200-StartProj.git'
            sh "git clone https://github.com/furyanaor/Dev8200-StartProj.git"
-
            // Do a ls -lart to view all the files are cloned. It will be clonned. This is just for you to be sure about it.
            sh "ls -lart ./*"
            // List all branches in your repo. 
@@ -37,7 +37,6 @@ pipeline {
     stage('TestingCode') {
       steps {
         echo "Testing the application code"
-
         //sh 'python3 Dev8200-StartProj/test_app.py'
         //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
       }
@@ -47,7 +46,7 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-            sh 'echo "building the repo"'
+            echo 'Building repo on Jenkins virtual-Server, tag & push to DockerHub'
 
             sh 'docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/Dev8200-StartProj/docker-compose.yml down'
             sh 'docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/Dev8200-StartProj/docker-compose.yml up --build -d'
