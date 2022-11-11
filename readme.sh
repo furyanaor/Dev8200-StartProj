@@ -4,5 +4,5 @@
 docker-compose build
 docker-compose up
 
-##to stop the created container using the command docker-compose down..........סץץץץץ
+##to stop the created container using the command docker-compose down..........סץRץץץץ
 #docker-compose down
