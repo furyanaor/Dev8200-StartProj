@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash
 # -x add debuging | -e exit test when error
 URL='localhost:7007'
 RESULT=`curl -s -I ${URL} | grep HTTP | awk {'print $2'}`
