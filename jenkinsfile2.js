@@ -23,6 +23,7 @@ pipeline {
           echo "Git clone to Jenkins Virtual-Server"
            // The below will clone your repo and will be checked out to master branch by default.
            // git credentialsId: 'furyanaor', url: 'https://github.com/furyanaor/Dev8200-StartProj.git'
+           sh "if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi"
            sh "git clone https://github.com/furyanaor/Dev8200-StartProj.git"
            // Do a ls -lart to view all the files are cloned. It will be clonned. This is just for you to be sure about it.
            sh "ls -lart ./*"
@@ -45,6 +46,7 @@ pipeline {
     // stage('Build') {
     //   parallel {
     //     stage('Build') {
+    //       echo 'Building Graphana monitor'
     //       steps {
     //         echo 'Building repo on Jenkins Virtual-Server, tag & push to DockerHub'
 
@@ -59,7 +61,7 @@ pipeline {
 
     // stage('DeployAppOnTesting') {
     //   steps {
-    //     echo "deploying the application on Testing Virtual-Server"
+    //     echo "Deploying the application on Testing Virtual-Server"
 
     //     sh "sudo nohup python3 app.py > log.txt 2>&1 &"
 
@@ -84,8 +86,21 @@ pipeline {
         //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
       }
     }
+
+    stage('DeployAppOnProduction') {
+      steps {
+        echo "Deploying the application on Production Virtual-Server"
+
+        sh "sudo nohup python3 app.py > log.txt 2>&1 &"
+
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker run --rm -d -p 80:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
+      }
+    }
   }
-  
+
   post {
       // Clean after build
         always {
