@@ -80,7 +80,7 @@ pipeline {
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj.git ~/testingfile'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo ls -lart ~/testingfile'"
         
-        sh 'python3 ~/testingfile/TestMyDocker.sh'
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo python3 ~/testingfile/testmydocker.sh'"
         //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
       }
     }
