@@ -20,7 +20,7 @@ pipeline {
     stage('Checkout') {
       steps {
         script {
-          echo "Git clone to Jenkins Virtual-Server"
+          echo "git clone to Jenkins Virtual-Server"
            // The below will clone your repo and will be checked out to master branch by default.
            // git credentialsId: 'furyanaor', url: 'https://github.com/furyanaor/Dev8200-StartProj.git'
            sh "if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi"
