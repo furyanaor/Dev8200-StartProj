@@ -26,7 +26,7 @@ pipeline {
            sh "if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi"
            ////sh "git clone https://github.com/furyanaor/Dev8200-StartProj.git"
            // Do a ls -lart to view all the files are cloned. It will be clonned. This is just for you to be sure about it.
-           sh "ls -lart ./*"
+           ////sh "ls -lart ./*"
            // List all branches in your repo. 
            // sh "git branch -a"
            // Checkout to a specific branch in your repo.
