@@ -8,6 +8,6 @@ if [[ $RESULT -eq 200 ]]
 then
     echo " OK "
 else
-    echo "TEST NOT PASS |"
+    echo " TEST NOT PASS "
     exit 1
 fi
