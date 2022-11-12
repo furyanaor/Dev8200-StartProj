@@ -3,7 +3,7 @@ pipeline {
   agent any
   options {
       // This is required if you want to clean before build
-      skipDefaultCheckout(true)
+      ////skipDefaultCheckout(true)
   }
 
   stages {
