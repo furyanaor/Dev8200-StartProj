@@ -7,15 +7,15 @@ pipeline {
   }
 
   stages {
-    stage('PreCheckout') {
-      steps {
-        echo "Welcome ${env.JOB_NAME}... Cleaning Jenkins WorkSpace before build"
-        // Clean before build
-        cleanWs()
-        // We need to explicitly checkout from SCM here
-        //checkout scm
-      }
-    }
+    // stage('PreCheckout') {
+    //   steps {
+    //     echo "Welcome ${env.JOB_NAME}... Cleaning Jenkins WorkSpace before build"
+    //     // Clean before build
+    //     cleanWs()
+    //     // We need to explicitly checkout from SCM here
+    //     //checkout scm
+    //   }
+    // }
 
     stage('Checkout') {
       steps {
@@ -135,29 +135,29 @@ pipeline {
     }
   }
 
-  post {
-      // Clean after build
-        always {
+  // post {
+  //     // Clean after build
+  //       always {
 
-          cleanWs(cleanWhenNotBuilt: false,
-            deleteDirs: true,
-            disableDeferredWipeout: true,
-            notFailBuild: true,
+  //         cleanWs(cleanWhenNotBuilt: false,
+  //           deleteDirs: true,
+  //           disableDeferredWipeout: true,
+  //           notFailBuild: true,
             
-            patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
-            [pattern: '.propsfile', type: 'EXCLUDE']])
+  //           patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+  //           [pattern: '.propsfile', type: 'EXCLUDE']])
             
-            echo 'The pipeline completed'
-            junit allowEmptyResults: true, testResults:'**/test_reports/*.xml'
-        }
+  //           echo 'The pipeline completed'
+  //           junit allowEmptyResults: true, testResults:'**/test_reports/*.xml'
+  //       }
 
-        success {                   
-            echo "Flask Application Up and running!!"
-        }
+  //       success {                   
+  //           echo "Flask Application Up and running!!"
+  //       }
 
-        failure {
-            echo 'Build stage failed'
-            error('Stopping early…')
-        }
-    }
+  //       failure {
+  //           echo 'Build stage failed'
+  //           error('Stopping early…')
+  //       }
+  //   }
 }
