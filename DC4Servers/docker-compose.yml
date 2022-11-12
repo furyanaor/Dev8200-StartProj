@@ -2,8 +2,8 @@
 version: '3'
 services:
   web:
-    #image: furyanaor/dev8200-startproj_web:latest
-    build: .
+    image: furyanaor/dev8200-startproj_web:latest
+    #build: .
     ports:
       - "7007:80"
     volumes:

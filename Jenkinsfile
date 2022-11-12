@@ -68,10 +68,13 @@ pipeline {
 
         sh "sudo nohup python3 app.py > log.txt 2>&1 &"
 
-        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker run --rm -d -p 7007:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
+        // sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker run --rm -d -p 7007:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
+      
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
       }
     }
   
@@ -96,10 +99,13 @@ pipeline {
 
         sh "sudo nohup python3 app.py > log.txt 2>&1 &"
 
-        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker run --rm -d -p 80:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker run --rm -d -p 80:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
+
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
       }
     }
   }
