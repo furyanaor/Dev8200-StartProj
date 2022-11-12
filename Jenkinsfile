@@ -66,13 +66,23 @@ pipeline {
       steps {
         echo "Deploying the application on Testing Virtual-Server"
 
+        // what the hell is ln70?!
         sh "sudo nohup python3 app.py > log.txt 2>&1 &"
 
+        // clon docker-compose&testing file from github (its just clone all the repo)
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'if sudo ls -lart ~/testingfile; then sudo ls -lart ~/testingfile; fi'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo rm -rf ~/testingfile'"
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo ls -lart ~/'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj.git ~/testingfile'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo ls -lart ~/testingfile'"
+
+        // Clear old docker images
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
         // sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker run --rm -d -p 7007:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
       
+        // docker-compose up on Production Virtual Server
         //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
       }
@@ -81,12 +91,6 @@ pipeline {
     stage('TestingWeb') {
       steps {  
         echo "Testing the Testing Virtual-Server"
-
-        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'if sudo ls -lart ~/testingfile; then sudo ls -lart ~/testingfile; fi'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo rm -rf ~/testingfile'"
-        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo ls -lart ~/'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj.git ~/testingfile'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo ls -lart ~/testingfile'"
         
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo bash ~/testingfile/testmydocker.sh'"
         //input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
@@ -96,14 +100,23 @@ pipeline {
     stage('DeployAppOnProduction') {
       steps {
         echo "Deploying the application on Production Virtual-Server"
-
+        // What the hell is ln103?!
         sh "sudo nohup python3 app.py > log.txt 2>&1 &"
 
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'ls -la /home'"
+        // clon docker-compose&testing file from github (its just clone all the repo)
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'if sudo ls -lart ~/testingfile; then sudo ls -lart ~/testingfile; fi'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo rm -rf ~/testingfile'"
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo ls -lart ~/'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj.git ~/testingfile'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo ls -lart ~/testingfile'"
+
+        // Clear old docker images
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'ls -la /home'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
         //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker run --rm -d -p 80:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
 
+        // docker-compose up on Production Virtual Server
         //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
       }
