@@ -73,8 +73,8 @@ pipeline {
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
         // sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker run --rm -d -p 7007:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
       
-        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'sudo docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-44-204-91-41.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
       }
     }
   
@@ -104,8 +104,8 @@ pipeline {
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
         //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker run --rm -d -p 80:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
 
-        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
       }
     }
   }
