@@ -52,6 +52,7 @@ pipeline {
 
             //login Jenkins user to docker hub for the first time:
             //sh 'docker login -u "username" -p "passworld" docker.io'
+            sh 'docker login -u "furyanaor" -p "Furyan1230" docker.io'
             
             sh 'if sudo docker ps | grep dev8200; then docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/Dev8200-StartProj/docker-compose.yml down; fi'
             sh 'docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/Dev8200-StartProj/docker-compose.yml up --build -d'
