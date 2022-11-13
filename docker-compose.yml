@@ -20,3 +20,20 @@ services:
       - 8082:80
     environment:
       - PMA_HOST=mysqldb
+  grafana:
+    image: grafana/grafana:6.7.2
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
+    expose:
+      - 3000
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"    
