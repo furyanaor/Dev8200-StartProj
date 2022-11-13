@@ -53,8 +53,8 @@ pipeline {
             //login Jenkins user to docker hub for the first time:
             //sh 'docker login -u "username" -p "passworld" docker.io'
             
-            sh 'sudo mkdir -p ~/prometheus-grafana/{grafana,prometheus}'
-            sh 'echo ls ~/prometheus-grafana/'
+            //sh 'sudo mkdir -p ~/prometheus-grafana/{grafana,prometheus}'
+            //sh 'echo ls ~/prometheus-grafana/'
 
             sh 'if sudo docker ps | grep dev8200; then docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/docker-compose.yml down; fi'
             sh 'docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/docker-compose.yml up --build -d'
