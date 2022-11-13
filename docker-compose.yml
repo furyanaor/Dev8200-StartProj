@@ -25,13 +25,13 @@ services:
     volumes:
             - ~/prometheus-grafana/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
-      - 9090:9090
+      - 9090:80
   grafana:
     image: grafana/grafana:latest
     volumes:
             - ~/prometheus-grafana/grafana/grafana.ini:/etc/grafana/grafana.ini
             - ~/prometheus-grafana/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
     ports:
-      - 3000:3000
+      - 3000:80
     links:
             - prometheus
