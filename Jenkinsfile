@@ -134,6 +134,28 @@ pipeline {
         // docker-compose up on Production Virtual Server
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
         sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
+
+        // *Same for DigitalOcean Machine:
+        // docker-compuse down on Testion Virtual-Server
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
+
+        // clon docker-compose&testing file from github (its just clone all the repo)
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'if sudo ls -lart ~/testingfile; then sudo ls -lart ~/testingfile; fi'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'sudo rm -rf ~/testingfile'"
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo ls -lart ~/'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj.git ~/testingfile'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'sudo ls -lart ~/testingfile'"
+
+        // Clear old docker images
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'ls -la /home'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
+        //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker run --rm -d -p 80:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
+
+        // docker-compose up on Production Virtual Server
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
+
       }
     }
   }
