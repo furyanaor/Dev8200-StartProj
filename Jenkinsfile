@@ -56,15 +56,15 @@ pipeline {
         
         // *Same for DigitalOcean Machine:
         // docker-compuse down on Production Virtual-Server
-        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem ec2-user@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
         // clon docker-compose file from github (its just clone all the repo)
-        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem ec2-user@157.230.180.96 'sudo rm -rf ~/testingfile'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem ec2-user@157.230.180.96 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj.git ~/testingfile'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'sudo rm -rf ~/testingfile'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'sudo git clone https://github.com/furyanaor/Dev8200-StartProj.git ~/testingfile'"
         // Clear old docker images and stop continer if running
-        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem ec2-user@157.230.180.96 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem ec2-user@157.230.180.96 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'if sudo docker ps | grep dev8200-startproj_web.name.latest; then sudo docker stop dev8200-startproj_web.name.latest; fi'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi'"
         // docker-compose up on Production Virtual Server
-        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem ec2-user@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
       }
     }
   }
