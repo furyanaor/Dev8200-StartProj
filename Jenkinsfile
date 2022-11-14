@@ -2,7 +2,6 @@
 pipeline {
   agent any
   stages {
-
     stage ('Build') {
       steps {
             echo 'Building repo on Jenkins Virtual-Server, tag & push to DockerHub'
@@ -97,7 +96,6 @@ pipeline {
         // docker-compose up on Production Virtual Server
         sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
         sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
-
       }
     }
   }
