@@ -153,8 +153,8 @@ pipeline {
         //sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa ec2-user@ec2-54-234-222-213.compute-1.amazonaws.com 'sudo docker run --rm -d -p 80:80 --name dev8200-startproj_web.name.latest furyanaor/dev8200-startproj_web:latest'"
 
         // docker-compose up on Production Virtual Server
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
-        sh "sudo ssh -i /home/ec2-user/.ssh/id_dsa root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
+        sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem root@157.230.180.96 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml up --build -d'"
 
       }
     }
