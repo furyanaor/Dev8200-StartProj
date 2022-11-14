@@ -20,7 +20,7 @@ pipeline {
       }
     }
 
-    stage('Deploy') {
+    stage('Deploy-A') {
       steps {
         echo "Deploying the application on Testing Virtual-Server"
 
@@ -50,7 +50,7 @@ pipeline {
       }
     }
 
-    stage('Deploy') {
+    stage('Deploy-B') {
       steps {
         echo "Deploying the application on Production Virtual-Server"
         // What the hell is the next line?!
