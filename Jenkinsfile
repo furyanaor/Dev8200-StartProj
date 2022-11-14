@@ -1,29 +1,14 @@
 
 pipeline {
   agent any
-  // options {
-  //     // This is required if you want to clean before build
-  //     ////skipDefaultCheckout(true)
-  // }
-
   stages {
-    // stage('PreCheckout') {
-    //   steps {
-    //     echo "Welcome ${env.JOB_NAME}... Cleaning Jenkins WorkSpace before build"
-    //     // Clean before build
-    //     cleanWs()
-    //     // We need to explicitly checkout from SCM here
-    //     //checkout scm
-    //   }
-    // }
-
     stage('Checkout') {
       steps {
         script {
           echo "git clone to Jenkins Virtual-Server"
            // The below will clone your repo and will be checked out to master branch by default.
            // git credentialsId: 'furyanaor', url: 'https://github.com/furyanaor/Dev8200-StartProj.git'
-           sh "if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi"
+           //////sh "if sudo docker images | grep dev8200; then sudo docker image rm -f furyanaor/dev8200-startproj_web:latest; fi"
            ////sh "git clone https://github.com/furyanaor/Dev8200-StartProj.git"
            // Do a ls -lart to view all the files are cloned. It will be clonned. This is just for you to be sure about it.
            ////sh "ls -lart ./*"
