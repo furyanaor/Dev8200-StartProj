@@ -12,7 +12,10 @@ pipeline {
             // login Jenkins user to docker hub for the first time:
             // sh 'docker login -u "username" -p "passworld" docker.io'
 
+            // Docker-compose down if is already up on Jenk Virtual-Server
             sh 'if sudo docker ps | grep dev8200; then docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/docker-compose.yml down; fi'
+            
+            // Compose up, tag & push to DockerHub
             sh 'docker-compose -f /var/lib/jenkins/workspace/Dev8200-StarterProj-Pip/docker-compose.yml up --build -d'
             sh 'docker tag dev8200-starterproj-pip_web furyanaor/dev8200-startproj_web'
             sh 'docker push furyanaor/dev8200-startproj_web'
@@ -25,8 +28,8 @@ pipeline {
       steps {
         echo "Deploying the application on Testing Virtual-Server"
 
-        // what the hell is the next line?!
-        sh "sudo nohup python3 app.py > log.txt 2>&1 &"
+        // // what the hell is the next line?!
+        // sh "sudo nohup python3 app.py > log.txt 2>&1 &"
 
         // docker-compuse down on Testion Virtual-Server
         sh "sudo ssh -i /home/ec2-user/.ssh/DEV8200.pem ec2-user@52.90.177.233 'docker-compose -f ~/testingfile/DC4Servers/docker-compose.yml down'"
